@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["./src/*"],
+      "pages": ["src/pages/*"],
+      "API": ["src/API/*"],
+      "assets": ["src/assets/*"],
+      "components": ["src/components/*"],
+      "config": ["src/config/*"],
+      "public": ["public/*"],
+      "HOCS": ["src/HOCS/*"],
+      "reduxs": ["src/reduxs/*"],
+      "styles": ["src/styles/*"],
+      "thunks": ["src/thunks/*"],
+      "utils": ["src/utils/*"],
+      "schemas": ["src/schemas/*"],
+      "constants": ["src/constants/*"],
+      "routes": ["src/routes/*"],
+      "layout": ["src/layouts/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}
