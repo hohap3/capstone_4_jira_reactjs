@@ -160,3 +160,15 @@ Vitejs là 1 công cụ build web cực kỳ nhanh và cập nhật nhanh chóng
 ```
   yarn add react-router-dom
 ```
+
+## sweetalert2
+
+```
+  yarn add sweetalert2
+```
+
+## animate.css
+
+```
+  yarn add animate.css
+```
