@@ -6,3 +6,15 @@ export const DEFAULT_VALUES_LOGIN = {
   email: "",
   passWord: "",
 };
+
+export const DEFAULT_VALUES_REGISTER = {
+  email: "",
+  passWord: "",
+  retypePassword: "",
+  name: "",
+  phoneNumber: "",
+};
+
+export const VALUES_REGISTER = ["email", "passWord", "name", "phoneNumber"];
+
+export const ACCESS_TOKEN = "ACCESS_TOKEN";
