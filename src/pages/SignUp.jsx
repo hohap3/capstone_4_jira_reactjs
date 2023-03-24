@@ -1,7 +1,7 @@
 import userAPI from "API/userAPI";
 import FormSignUp from "components/form/FormSignUp";
 import { VALUES_REGISTER } from "constants";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,10 +9,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { registerSuccess, resetRegister } from "reduxs/Slice/userSlice";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 function SignUp() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const timeoutId = useRef();
 
   const hasRegister = useSelector((state) => state.user.hasRegister);
@@ -37,9 +39,12 @@ function SignUp() {
         if (!VALUES_REGISTER.includes(key)) delete newValues[key];
       }
 
+      setIsLoading(true);
+
       await userAPI.signUp(newValues);
 
       dispatch(registerSuccess());
+      setIsLoading(false);
       successMessage();
     } catch (error) {
       const { message } = error.response.data;
@@ -48,6 +53,7 @@ function SignUp() {
         title: "Oops...",
         text: `${message}`,
       });
+      setIsLoading(false);
     }
   }
 
@@ -70,6 +76,10 @@ function SignUp() {
       <div className="flex justify-end mt-5">
         <Link to="/">Already have an account? Sign in here!</Link>
       </div>
+
+      <Backdrop open={isLoading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
 
       {successMessage && <ToastContainer />}
     </section>

@@ -19,7 +19,7 @@ export function authHOC(WrapComponent) {
     useEffect(() => {
       if (userLogin || access_token) {
         Swal.fire({
-          title: "You has been logged in!",
+          title: "You have been logged in!",
           html: "You will return admin page after <b></b> milliseconds",
           timer: 2000,
           timerProgressBar: true,

@@ -5,6 +5,7 @@ const userSlice = createSlice({
   initialState: {
     userLogin: null,
     hasRegister: false,
+    isLoading: false,
   },
 
   reducers: {
@@ -19,9 +20,13 @@ const userSlice = createSlice({
     resetRegister(state) {
       state.hasRegister = false;
     },
+
+    setLoading(state, action) {
+      state.isLoading = action.payload;
+    },
   },
 });
 
 const { actions, reducer } = userSlice;
-export const { insertUserLogin, registerSuccess, resetRegister } = actions;
+export const { insertUserLogin, registerSuccess, resetRegister, setLoading } = actions;
 export default reducer;

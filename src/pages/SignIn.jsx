@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Backdrop, Button, CircularProgress } from "@mui/material";
 import FormSignIn from "components/form/FormSignIn";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 function SignIn() {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.user.userLogin);
+  const isLoading = useSelector((state) => state.user.isLoading);
 
   const timeoutId = useRef();
   const navigate = useNavigate();
@@ -63,6 +64,10 @@ function SignIn() {
       <div className="flex justify-end mt-5">
         <Link to="/signUp">Don't have an account? Sign up here!</Link>
       </div>
+
+      <Backdrop open={isLoading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
 
       {userLogin && <ToastContainer />}
     </section>

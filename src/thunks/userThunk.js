@@ -1,14 +1,17 @@
 import userAPI from "API/userAPI";
 import { ACCESS_TOKEN } from "constants";
-import { insertUserLogin } from "reduxs/Slice/userSlice";
+import { insertUserLogin, setLoading } from "reduxs/Slice/userSlice";
 import Swal from "sweetalert2";
 
 export function fetchSignIn(data) {
   return async function (dispatch) {
     try {
+      dispatch(setLoading(true));
+
       const res = await userAPI.signIn(data);
 
       dispatch(insertUserLogin(res.data.content));
+      dispatch(setLoading(false));
 
       localStorage.setItem(
         ACCESS_TOKEN,
@@ -22,6 +25,8 @@ export function fetchSignIn(data) {
         title: "Oops...",
         text: `${message}`,
       });
+
+      dispatch(setLoading(false));
     }
   };
 }
