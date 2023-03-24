@@ -35,8 +35,7 @@ export function authHOC(WrapComponent) {
           },
         }).then((result) => {
           if (result.dismiss === Swal.DismissReason.timer) {
-            navigate("/admin");
-            console.log("Has returned to admin page");
+            window.location.pathname = "/admin/home";
           }
         });
       }

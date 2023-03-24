@@ -1,5 +1,5 @@
 import AdminHome from "pages/admin/AdminHome";
-import AdminPage from "pages/admin/AdminPage";
+
 import SettingPage from "pages/admin/SettingPage";
 
 import SignIn from "pages/SignIn";
