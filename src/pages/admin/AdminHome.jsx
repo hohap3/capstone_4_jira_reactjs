@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/adminHome.scss";
 
 function AdminHome(props) {
   return (
@@ -14,11 +15,24 @@ function AdminHome(props) {
           </ol>
         </nav>
       </div>
-      <h3>Cyber Board</h3>
-      <div className="info" style={{ display: "flex" }}>
-        <div className="search-block">
-          <input className="search" />
-          <i className="fa fa-search" />
+      <h3 className="text-2xl font-medium">Cyber Board</h3>
+      <div className="info items-center" style={{ display: "flex" }}>
+        <div className="search-block flex items-center gap-2">
+          <input className="search" placeholder="Search something..." />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
+          </svg>
         </div>
         <div className="avatar-group" style={{ display: "flex" }}>
           <div className="avatar">
@@ -31,10 +45,10 @@ function AdminHome(props) {
             <img src="./assets/img/download (3).jfif" alt />
           </div>
         </div>
-        <div style={{ marginLeft: 20 }} className="text">
+        <div style={{ marginLeft: 20 }} className="text-sm">
           Only My Issues
         </div>
-        <div style={{ marginLeft: 20 }} className="text">
+        <div style={{ marginLeft: 20 }} className="text-sm">
           Recently Updated
         </div>
       </div>

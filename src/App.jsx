@@ -1,5 +1,5 @@
 import { authHOC } from "HOCS/authHOC";
-import AdminHome from "pages/admin/AdminHome";
+
 import AdminPage from "pages/admin/AdminPage";
 
 import NotFound from "pages/NotFound";
@@ -8,6 +8,7 @@ import { Route, Routes, useParams } from "react-router-dom";
 import { adminRoutes, clientRoutes } from "routes/routes";
 
 import "./App.css";
+import "./styles/layoutAdmin.scss";
 
 function App() {
   const pathName = window.location.pathname;
