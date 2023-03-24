@@ -17,21 +17,15 @@ const clientRoutes = [
   },
 ];
 
-// const adminRoutes = [
-//   {
-//     path: "/admin",
-//     component: AdminPage,
-//     children: [
-//       {
-//         path: "/home",
-//         component: AdminHome,
-//       },
-//       {
-//         path: "/setting",
-//         component: SettingPage,
-//       },
-//     ],
-//   },
-// ];
+const adminRoutes = [
+  {
+    path: "home",
+    component: AdminHome,
+  },
+  {
+    path: "setting",
+    component: SettingPage,
+  },
+];
 
-export { clientRoutes };
+export { clientRoutes, adminRoutes };
