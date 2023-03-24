@@ -1,11 +1,12 @@
+import LayoutAdmin from "layouts/LayoutAdmin";
 import React from "react";
 import { Outlet } from "react-router-dom";
 
 function AdminPage() {
   return (
-    <div>
+    <LayoutAdmin>
       <Outlet />
-    </div>
+    </LayoutAdmin>
   );
 }
 

@@ -1,34 +1,30 @@
 import { authHOC } from "HOCS/authHOC";
-import AdminPage from "pages/admin/AdminPage";
+
 import NotFound from "pages/NotFound";
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { clientRoutes, adminRoutes } from "routes/routes";
+import React, { useEffect } from "react";
+import { Route, Routes, useParams } from "react-router-dom";
+import { clientRoutes } from "routes/routes";
 
 import "./App.css";
 
 function App() {
+  const pathName = window.location.pathname;
+
+  useEffect(() => {
+    function setDefaultURL() {
+      if (pathName === "/") window.location.pathname = "/signIn";
+    }
+
+    setDefaultURL();
+  }, [pathName]);
+
   return (
     <div className="App">
       <Routes>
-        {clientRoutes?.map(({ path, component: Component, children }, idx) => (
-          <Route key={idx} path={path} element={<Component />}>
-            {children?.map(({ path, component: ChildComponent, index }, idx) => {
-              const AuthComponentHOC = authHOC(ChildComponent);
-              return (
-                <Route key={idx} index={index} path={path} element={<AuthComponentHOC />}></Route>
-              );
-            })}
-          </Route>
-        ))}
-
-        {adminRoutes?.map(({ path, component: Component, children }, idx) => (
-          <Route key={idx} path={path} element={<Component />}>
-            {children?.map(({ path, component: ChildComponent, index }, idx) => (
-              <Route key={idx} path={path} element={<ChildComponent />} index={index}></Route>
-            ))}
-          </Route>
-        ))}
+        {clientRoutes?.map(({ path, component: Component }, idx) => {
+          const AuthComponentHOC = authHOC(Component);
+          return <Route key={idx} path={path} element={<AuthComponentHOC />} />;
+        })}
 
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -1,38 +1,37 @@
 import AdminHome from "pages/admin/AdminHome";
 import AdminPage from "pages/admin/AdminPage";
-import HomePage from "pages/HomePage";
+import SettingPage from "pages/admin/SettingPage";
+
 import SignIn from "pages/SignIn";
 import SignUp from "pages/SignUp";
 
 const clientRoutes = [
   {
-    path: "/",
-    component: HomePage,
-    children: [
-      {
-        index: true,
-        component: SignIn,
-      },
-
-      {
-        path: "/signUp",
-        component: SignUp,
-      },
-    ],
+    path: "/signIn",
+    component: SignIn,
   },
-];
 
-const adminRoutes = [
   {
-    path: "/admin",
-    component: AdminPage,
-    children: [
-      {
-        index: true,
-        component: AdminHome,
-      },
-    ],
+    path: "/signUp",
+    component: SignUp,
   },
 ];
 
-export { clientRoutes, adminRoutes };
+// const adminRoutes = [
+//   {
+//     path: "/admin",
+//     component: AdminPage,
+//     children: [
+//       {
+//         path: "/home",
+//         component: AdminHome,
+//       },
+//       {
+//         path: "/setting",
+//         component: SettingPage,
+//       },
+//     ],
+//   },
+// ];
+
+export { clientRoutes };
