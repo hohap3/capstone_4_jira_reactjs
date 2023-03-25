@@ -61,7 +61,7 @@ function SignUp() {
     if (hasRegister) {
       timeoutId.current = setTimeout(() => {
         dispatch(resetRegister());
-        navigate("/");
+        navigate("/signIn");
       }, 2500);
     }
   });
@@ -74,7 +74,7 @@ function SignUp() {
       </div>
 
       <div className="flex justify-end mt-5">
-        <Link to="/">Already have an account? Sign in here!</Link>
+        <Link to="/signIn">Already have an account? Sign in here!</Link>
       </div>
 
       <Backdrop open={isLoading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>

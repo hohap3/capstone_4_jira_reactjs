@@ -35,7 +35,7 @@ function SignIn() {
   useEffect(() => {
     if (userLogin) {
       timeoutId.current = setTimeout(() => {
-        navigate("/admin/home");
+        window.location.pathname = "/admin/home";
       }, 2500);
     }
 

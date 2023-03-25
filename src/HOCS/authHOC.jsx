@@ -13,7 +13,6 @@ export function authHOC(WrapComponent) {
     const { access_token } = accessToken;
 
     const timeInterval = useRef();
-    const navigate = useNavigate();
 
     // Check if user logged in , then we redirect to admin page
     useEffect(() => {
