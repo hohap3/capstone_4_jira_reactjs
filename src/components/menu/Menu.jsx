@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "assets/download.jfif";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
+import { NavLink } from "react-router-dom";
+import clsx from "clsx";
 
 function MenuAdmin(props) {
   return (
@@ -15,7 +17,14 @@ function MenuAdmin(props) {
         </div>
       </div>
       <div className="control">
-        <div className="flex gap-2 items-center">
+        <NavLink
+          to="/admin/home"
+          className={({ isActive, isPending }) => {
+            return `flex gap-4 items-center mb-4 text-[14px] ${
+              isActive ? "text-blue-500" : "text-black"
+            }`;
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -32,8 +41,15 @@ function MenuAdmin(props) {
           </svg>
 
           <span>Cyber Board</span>
-        </div>
-        <div className="flex gap-2 items-center">
+        </NavLink>
+        <NavLink
+          to="/admin/createProject"
+          className={({ isActive, isPending }) => {
+            return `flex gap-4 items-center mb-4 text-[14px] ${
+              isActive ? "text-blue-500" : "text-black"
+            }`;
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -54,11 +70,11 @@ function MenuAdmin(props) {
             />
           </svg>
 
-          <span>Project Settings</span>
-        </div>
+          <span>Create Project</span>
+        </NavLink>
       </div>
       <div className="feature">
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-4 items-center cursor-not-allowed">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -76,11 +92,11 @@ function MenuAdmin(props) {
 
           <span>Releases</span>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-4 items-center cursor-not-allowed">
           <EqualizerIcon />
           <span>Issues and filters</span>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-4 items-center cursor-not-allowed">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -98,7 +114,7 @@ function MenuAdmin(props) {
 
           <span>Pages</span>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-4 items-center cursor-not-allowed">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -116,7 +132,7 @@ function MenuAdmin(props) {
 
           <span>Reports</span>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-4 items-center cursor-not-allowed">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

@@ -813,6 +813,14 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.4.0.tgz#74935d538e4df8893e47831a7aea362f295bcd39"
   integrity sha512-BJ9SxXux8zAg991UmT8slpwpsd31K1dHHbD3Ba4VzD+liLQ4WAMSxQp2d2ZPRPfN0jN2NPRowcSSoM7lCaF08Q==
 
+"@tinymce/tinymce-react@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-4.3.0.tgz#5e2f5a58526a1bba9710f54f5fcf16abd4c742a1"
+  integrity sha512-iB4cUsYfcJL4NGuKhqCGYuTmFTje3nPxyPv1HxprTsp/YMGuuiiSNWrv3zwI31QX5Cn8qeq9MrMDnbxuRugHyg==
+  dependencies:
+    prop-types "^15.6.2"
+    tinymce "^6.3.1"
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
@@ -3466,6 +3474,11 @@ tiny-case@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-case/-/tiny-case-1.0.3.tgz#d980d66bc72b5d5a9ca86fb7c9ffdb9c898ddd03"
   integrity sha512-Eet/eeMhkO6TX8mnUteS9zgPbUMQa4I6Kkp5ORiBD5476/m+PIRiumP5tmh5ioJpH7k51Kehawy2UDfsnxxY8Q==
+
+tinymce@^6.3.1:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-6.4.0.tgz#311658bdc74bc983db410c58270ef957c4f48652"
+  integrity sha512-A1IZKhEM7sS/je7M+SjKqa1UM59GzOxi2M5me8sYx9/VoSzCaAXOgTo1M1wQsu8dFbThbBgz9vZqBFqukhYyhg==
 
 to-fast-properties@^2.0.0:
   version "2.0.0"

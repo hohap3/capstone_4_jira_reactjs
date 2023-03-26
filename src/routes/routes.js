@@ -1,7 +1,5 @@
 import AdminHome from "pages/admin/AdminHome";
-
-import SettingPage from "pages/admin/SettingPage";
-
+import CreateProjectPage from "pages/admin/CreateProject";
 import SignIn from "pages/SignIn";
 import SignUp from "pages/SignUp";
 
@@ -23,8 +21,8 @@ const adminRoutes = [
     component: AdminHome,
   },
   {
-    path: "setting",
-    component: SettingPage,
+    path: "createProject",
+    component: CreateProjectPage,
   },
 ];
 

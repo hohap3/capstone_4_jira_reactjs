@@ -3,8 +3,9 @@ import { authHOC } from "HOCS/authHOC";
 import AdminPage from "pages/admin/AdminPage";
 
 import NotFound from "pages/NotFound";
-import React, { Component, useEffect } from "react";
-import { Route, Routes, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+
+import { Route, Routes } from "react-router-dom";
 import { adminRoutes, clientRoutes } from "routes/routes";
 
 import "./App.css";
