@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import AppsIcon from "@mui/icons-material/Apps";
-import { Layout, Menu, theme } from "antd";
-import { USER_LOGIN } from "constants";
+import { Layout, Menu } from "antd";
 
 const { Header, Sider, Content } = Layout;
 
