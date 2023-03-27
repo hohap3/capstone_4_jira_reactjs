@@ -1,5 +1,6 @@
 import AdminHome from "pages/admin/AdminHome";
 import CreateProjectPage from "pages/admin/CreateProject";
+import ProjectManager from "pages/admin/ProjectManager";
 import SignIn from "pages/SignIn";
 import SignUp from "pages/SignUp";
 
@@ -23,6 +24,10 @@ const adminRoutes = [
   {
     path: "createProject",
     component: CreateProjectPage,
+  },
+  {
+    path: "projectManager",
+    component: ProjectManager,
   },
 ];
 

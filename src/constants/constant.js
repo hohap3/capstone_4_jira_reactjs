@@ -17,10 +17,12 @@ export const DEFAULT_VALUES_REGISTER = {
 
 export const VALUES_REGISTER = ["email", "passWord", "name", "phoneNumber"];
 export const ACCESS_TOKEN = "ACCESS_TOKEN";
+export const USER_LOGIN = "USER_LOGIN";
 
 export const STATUS_CODE = {
   SUCCESS: 200,
   ERROR_SERVER: 500,
   ERROR_UNAUTHORIZE: 401,
   ERROR_NOTFOUND: 404,
+  ERROR_FORBIDDEN: 403,
 };

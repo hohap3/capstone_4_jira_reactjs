@@ -1,18 +1,19 @@
 import React from "react";
-import Image from "assets/download.jfif";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
 import { NavLink } from "react-router-dom";
-import clsx from "clsx";
+import { getLoginInfo } from "utils";
 
 function MenuAdmin(props) {
+  const { avatar, email, name } = getLoginInfo();
+
   return (
     <div className="menu">
       <div className="account">
         <div className="avatar">
-          <img src={Image} alt="" />
+          <img src={avatar} alt="" />
         </div>
         <div className="account-info">
-          <p>CyberLearn.vn</p>
+          <p>{email}</p>
           <p>Report bugs</p>
         </div>
       </div>
@@ -40,10 +41,11 @@ function MenuAdmin(props) {
             />
           </svg>
 
-          <span>Cyber Board</span>
+          <span>{name} Board</span>
         </NavLink>
+
         <NavLink
-          to="/admin/createProject"
+          to="/admin/projectManager"
           className={({ isActive, isPending }) => {
             return `flex gap-4 items-center mb-4 text-[14px] ${
               isActive ? "text-blue-500" : "text-black"
@@ -67,6 +69,32 @@ function MenuAdmin(props) {
               strokeLinecap="round"
               strokeLinejoin="round"
               d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+          </svg>
+
+          <span>Project Manager</span>
+        </NavLink>
+
+        <NavLink
+          to="/admin/createProject"
+          className={({ isActive, isPending }) => {
+            return `flex gap-4 items-center mb-4 text-[14px] ${
+              isActive ? "text-blue-500" : "text-black"
+            }`;
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
             />
           </svg>
 

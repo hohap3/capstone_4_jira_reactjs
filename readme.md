@@ -178,3 +178,9 @@ Vitejs là 1 công cụ build web cực kỳ nhanh và cập nhật nhanh chóng
 ```
   yarn add react-toastify
 ```
+
+## react-html-parser (giúp chuyển đổi html sang jsx)
+
+```
+  yarn add react-html-parser
+```

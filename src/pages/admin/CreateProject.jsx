@@ -1,5 +1,6 @@
 import { Backdrop } from "@mui/material";
 import projectAPI from "API/projectAPI";
+import HeaderMain from "components/admin/HeaderMain/HeaderMain";
 import FormCreate from "components/form/FormCreate";
 import LoadingCircle from "components/loadingCircle/LoadingCircle";
 import { STATUS_CODE } from "constants";
@@ -13,6 +14,7 @@ import { fetchProjectCategory } from "thunks/projectCategoryThunk";
 function CreateProjectPage() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const pathURL = window.location.pathname.split("/")[2];
 
   const notifyMessage = () =>
     toast.success("Create Project successfully!", {
@@ -77,21 +79,11 @@ function CreateProjectPage() {
   return (
     <section className="setting flex-1 h-screen overflow-y-scroll">
       <div className="setting__content px-[2%] flex flex-col mx-auto">
-        <div className="header">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb" style={{ backgroundColor: "white" }}>
-              <li className="breadcrumb-item">Project</li>
-              <li className="breadcrumb-item">CyberLearn</li>
-              <li className="breadcrumb-item active" aria-current="page">
-                Create Project
-              </li>
-            </ol>
-          </nav>
-        </div>
+        <HeaderMain currentPosition={pathURL} />
 
-        <h2 className="px-[1rem] text-[1.4rem] font-medium">Create Project</h2>
+        <h2 className="text-[1.4rem] font-medium">Create Project</h2>
 
-        <div className="setting__form px-[1rem]">
+        <div className="setting__form">
           <FormCreate onSubmit={handleSubmit} />
 
           <Backdrop open={loading}>
