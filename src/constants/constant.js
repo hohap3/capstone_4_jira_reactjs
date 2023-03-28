@@ -16,6 +16,7 @@ export const DEFAULT_VALUES_REGISTER = {
 };
 
 export const VALUES_REGISTER = ["email", "passWord", "name", "phoneNumber"];
+export const VALUES_PROJECT_UPDATE = ["id", "projectName", "creator", "description", "categoryId"];
 export const ACCESS_TOKEN = "ACCESS_TOKEN";
 export const USER_LOGIN = "USER_LOGIN";
 

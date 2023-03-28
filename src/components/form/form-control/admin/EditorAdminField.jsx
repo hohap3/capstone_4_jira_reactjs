@@ -23,7 +23,6 @@ function EditorAdminField(props) {
       <Editor
         name={field.name}
         onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue=""
         onEditorChange={handleEditorChange}
         value={field.value}
         init={{

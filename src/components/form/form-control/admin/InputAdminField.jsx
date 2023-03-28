@@ -15,7 +15,13 @@ function InputAdminField(props) {
     <div className="form__setting-item flex flex-col mb-4">
       <FormControl error={invalid}>
         <label className="text-sm text-gray-600 font-medium">{label}</label>
-        <Input name={field.name} onChange={field.onChange} onBlur={field.onBlur} {...restProps} />
+        <Input
+          name={field.name}
+          onChange={field.onChange}
+          onBlur={field.onBlur}
+          {...restProps}
+          value={field.value}
+        />
         {invalid && (
           <FormHelperText sx={{ fontSize: "0.8rem" }} id="component-error-text">
             {errors[name]?.message}

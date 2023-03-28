@@ -1,2 +1,2 @@
 export * from "./schemaAuth";
-export * from "./schemaCreateProject";
+export * from "./schemaProject";

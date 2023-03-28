@@ -1,12 +1,15 @@
 import HeaderMain from "components/admin/HeaderMain/HeaderMain";
+import ModalEdit from "components/modalEdit/ModalEdit";
 
 import ProjectManagerTable from "components/projectManagerTable/ProjectManagerTable";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resetAll } from "reduxs/Slice/projectSlice";
 import { fetchAllProject } from "thunks/projectThunk";
 
 function ProjectManager() {
+  const selectedProject = useSelector((state) => state.project.selectedProject);
+
   const dispatch = useDispatch();
 
   const pathURL = window.location.pathname.split("/")[2];
@@ -28,6 +31,10 @@ function ProjectManager() {
 
         <ProjectManagerTable />
       </div>
+
+      {selectedProject && (
+        <ModalEdit openDrawer={!!selectedProject} projectDetail={selectedProject} />
+      )}
     </section>
   );
 }

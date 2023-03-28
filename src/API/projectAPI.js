@@ -41,6 +41,20 @@ const projectAPI = {
       },
     });
   },
+
+  updateProjectById(projectId, data) {
+    const access_token = getAccessToken();
+
+    const url = `Project/updateProject`;
+    return https.put(url, data, {
+      params: {
+        projectId,
+      },
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+  },
 };
 
 export default projectAPI;

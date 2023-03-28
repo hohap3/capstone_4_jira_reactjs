@@ -2,22 +2,29 @@ import { Button } from "@mui/material";
 import { Table, Tag } from "antd";
 import LoadingCircle from "components/loadingCircle/LoadingCircle";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ReactHtmlParser from "react-html-parser";
 import Swal from "sweetalert2";
 import projectAPI from "API/projectAPI";
 import { STATUS_CODE } from "constants";
+import { setSelectedProject } from "reduxs/Slice/projectSlice";
 
 function ProjectManagerTable() {
   const isLoading = useSelector((state) => state.project.isLoading);
   const projectList = useSelector((state) => state.project.projectList);
+  const dispatch = useDispatch();
 
-  function handleRemoveProject(idx) {
+  function handleEditProject(record) {
+    if (projectList.length < 1) return;
+    dispatch(setSelectedProject(record));
+  }
+
+  function handleRemoveProject(record) {
     if (projectList.length < 1) return;
 
-    const { projectName, id } = projectList[idx];
+    const { projectName, id } = record;
 
     Swal.fire({
       title: `Do you want to remove ${projectName}`,
@@ -45,8 +52,6 @@ function ProjectManagerTable() {
           });
         }
       } catch (error) {
-        console.log(error);
-
         const { statusCode, content } = error.response.data;
 
         switch (statusCode) {
@@ -139,14 +144,14 @@ function ProjectManagerTable() {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      render: (text, record, index) => {
+      render: (text, record) => {
         return (
           <div className="flex items-center">
-            <Button onClick={() => handleRemoveProject(index)} sx={{ color: "red" }}>
+            <Button onClick={() => handleRemoveProject(record)} sx={{ color: "red" }}>
               <DeleteIcon />
             </Button>
 
-            <Button sx={{ color: "green" }}>
+            <Button sx={{ color: "green" }} onClick={() => handleEditProject(record)}>
               <EditIcon />
             </Button>
           </div>
