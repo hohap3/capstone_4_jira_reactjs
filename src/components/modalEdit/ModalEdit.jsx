@@ -5,12 +5,15 @@ import FormUpdate from "components/form/FormUpdate";
 import LoadingCircle from "components/loadingCircle/LoadingCircle";
 
 import { STATUS_CODE } from "constants";
+import { TOAST_TYPE } from "constants";
 import { VALUES_PROJECT_UPDATE } from "constants";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { resetSelectedProject, updateProjectList } from "reduxs/Slice/projectSlice";
 import Swal from "sweetalert2";
+import { fetchAllProject } from "thunks/projectThunk";
+import { toastMessage } from "utils";
 
 function ModalEdit(props) {
   const dispatch = useDispatch();
@@ -24,16 +27,7 @@ function ModalEdit(props) {
     dispatch(resetSelectedProject());
   }
 
-  const successMessage = () =>
-    toast.success("Update project successfully!", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      theme: "light",
-    });
+  const successMessage = toastMessage("Update project successfully!", TOAST_TYPE.SUCCESS);
 
   async function handleSubmitForm(values, index) {
     try {
@@ -52,7 +46,8 @@ function ModalEdit(props) {
 
       if (statusCode === STATUS_CODE.SUCCESS) {
         setLoading(false);
-        dispatch(updateProjectList({ index, values }));
+        // dispatch(updateProjectList({ index, values }));
+        dispatch(fetchAllProject());
         successMessage();
       }
     } catch (error) {

@@ -1,3 +1,4 @@
+import { getAccessToken } from "utils";
 import https from "./https";
 
 const userAPI = {
@@ -9,6 +10,20 @@ const userAPI = {
   signUp(data) {
     const url = `Users/signup`;
     return https.post(url, data);
+  },
+
+  getUserList(keyword) {
+    const access_token = getAccessToken();
+
+    const url = `Users/getUser`;
+    return https.get(url, {
+      params: {
+        keyword,
+      },
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
   },
 };
 

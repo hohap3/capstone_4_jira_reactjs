@@ -22,9 +22,9 @@ function EditorAdminField(props) {
       <label className="text-sm text-gray-600 font-medium mb-4">{label}</label>
       <Editor
         name={field.name}
+        value={field.value}
         onInit={(evt, editor) => (editorRef.current = editor)}
         onEditorChange={handleEditorChange}
-        value={field.value}
         init={{
           height: 500,
           menubar: false,

@@ -1,4 +1,3 @@
-import { ACCESS_TOKEN } from "constants";
 import { getAccessToken } from "utils";
 import https from "./https";
 
@@ -50,6 +49,28 @@ const projectAPI = {
       params: {
         projectId,
       },
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+  },
+
+  assignUserProject(data) {
+    const access_token = getAccessToken();
+
+    const url = `Project/assignUserProject`;
+    return https.post(url, data, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+  },
+
+  removeUserFromProject(data) {
+    const access_token = getAccessToken();
+
+    const url = `Project/removeUserFromProject`;
+    return https.post(url, data, {
       headers: {
         Authorization: `Bearer ${access_token}`,
       },

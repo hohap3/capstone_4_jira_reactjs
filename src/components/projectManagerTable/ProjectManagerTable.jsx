@@ -1,81 +1,52 @@
 import { Button } from "@mui/material";
-import { Table, Tag } from "antd";
+import { AutoComplete, Avatar, Popover, Table, Tag } from "antd";
 import LoadingCircle from "components/loadingCircle/LoadingCircle";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ReactHtmlParser from "react-html-parser";
-import Swal from "sweetalert2";
-import projectAPI from "API/projectAPI";
-import { STATUS_CODE } from "constants";
-import { setSelectedProject } from "reduxs/Slice/projectSlice";
 
-function ProjectManagerTable() {
+import { setSelectedProject } from "reduxs/Slice/projectSlice";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { fetchUserList } from "thunks/userThunk";
+import MemberDetail from "components/memberDetail/MemberDetail";
+
+function ProjectManagerTable({ onAddUser, onRemoveProject }) {
   const isLoading = useSelector((state) => state.project.isLoading);
   const projectList = useSelector((state) => state.project.projectList);
+  const userList = useSelector((state) => state.user.userList);
   const dispatch = useDispatch();
+  const [state, setState] = useState({
+    userId: null,
+    value: "",
+  });
+
+  // edit project
 
   function handleEditProject(record) {
     if (projectList.length < 1) return;
     dispatch(setSelectedProject(record));
   }
 
+  function handleAssignUser(projectId) {
+    if (!state.userId) return;
+
+    const data = { projectId, userId: state.userId };
+
+    if (onAddUser) onAddUser(data);
+    // reset State
+
+    setState({
+      userId: null,
+      value: "",
+    });
+  }
+
   function handleRemoveProject(record) {
     if (projectList.length < 1) return;
 
-    const { projectName, id } = record;
-
-    Swal.fire({
-      title: `Do you want to remove ${projectName}`,
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, remove it!",
-    }).then(async (result) => {
-      try {
-        if (result.isConfirmed) {
-          const res = await projectAPI.removeProjectById(id);
-
-          const { statusCode } = res.data;
-
-          if (statusCode === STATUS_CODE.SUCCESS) {
-            Swal.fire("Deleted!", `Project name ${projectName} has been removed`, "success");
-          }
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire({
-            title: `Oops...`,
-            icon: "error",
-            text: `Project name ${projectName} hasn't been removed!`,
-          });
-        }
-      } catch (error) {
-        const { statusCode, content } = error.response.data;
-
-        switch (statusCode) {
-          case STATUS_CODE.ERROR_FORBIDDEN: {
-            Swal.fire({
-              title: `Oops...`,
-              icon: "error",
-              text: `${content}`,
-            });
-            break;
-          }
-          case STATUS_CODE.ERROR_NOTFOUND: {
-            Swal.fire({
-              title: `Oops...`,
-              icon: "error",
-              text: `${content}`,
-            });
-            break;
-          }
-          default:
-            break;
-        }
-      }
-    });
+    if (onRemoveProject) onRemoveProject(record);
   }
 
   const columns = [
@@ -139,6 +110,87 @@ function ProjectManagerTable() {
       ],
       onFilter: (value, record) => record.categoryId === value,
     },
+    {
+      title: "Members",
+      dataIndex: "members",
+      key: "members",
+      render: (text, record, index) => {
+        const { id, members } = record;
+        return (
+          <div>
+            {members?.slice(0, 3).map((member) => (
+              <Popover
+                key={member.userId}
+                placement="top"
+                trigger="hover"
+                content={<MemberDetail member={member} projectId={id} />}
+              >
+                <Avatar title={member.name} className="m-1" src={member.avatar} />
+              </Popover>
+            ))}
+            {members?.length > 3 ? (
+              <Popover
+                placement="bottom"
+                trigger="hover"
+                content={() => (
+                  <div>
+                    {members?.slice(3).map((member) => (
+                      <MemberDetail member={member} projectId={id} />
+                    ))}
+                  </div>
+                )}
+              >
+                <Avatar>...</Avatar>
+              </Popover>
+            ) : (
+              ""
+            )}
+            <Popover
+              trigger="click"
+              placement="top"
+              title="Add new user"
+              content={() => (
+                <div>
+                  <AutoComplete
+                    options={userList?.map((user, idx) => ({
+                      label: user.name,
+                      value: user.userId.toString(),
+                    }))}
+                    className="w-full"
+                    placeholder="Add member"
+                    onSearch={(value) => {
+                      dispatch(fetchUserList(value));
+                    }}
+                    onSelect={(value, option) => {
+                      const { label } = option;
+                      setState({
+                        userId: +value,
+                        value: label,
+                      });
+                    }}
+                    onChange={(text) => {
+                      setState((prevState) => ({ ...prevState, value: text }));
+                    }}
+                    value={state.value}
+                  />
+                  <Button
+                    variant="contained"
+                    sx={{ margin: "0.6rem 0" }}
+                    onClick={() => handleAssignUser(id)}
+                  >
+                    Add
+                  </Button>
+                </div>
+              )}
+            >
+              <Button variant="text" onClick={() => handleOpenPop(index)} title="Add new user">
+                <PersonAddIcon />
+              </Button>
+            </Popover>
+          </div>
+        );
+      },
+    },
 
     {
       title: "Action",
@@ -147,12 +199,12 @@ function ProjectManagerTable() {
       render: (text, record) => {
         return (
           <div className="flex items-center">
-            <Button onClick={() => handleRemoveProject(record)} sx={{ color: "red" }}>
-              <DeleteIcon />
-            </Button>
-
             <Button sx={{ color: "green" }} onClick={() => handleEditProject(record)}>
               <EditIcon />
+            </Button>
+
+            <Button onClick={() => handleRemoveProject(record)} sx={{ color: "red" }}>
+              <DeleteIcon />
             </Button>
           </div>
         );

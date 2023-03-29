@@ -27,3 +27,11 @@ export const STATUS_CODE = {
   ERROR_NOTFOUND: 404,
   ERROR_FORBIDDEN: 403,
 };
+
+export const TOAST_TYPE = {
+  SUCCESS: "success",
+  WARM: "warn",
+  ERROR: "error",
+  INFO: "info",
+  DEFAULT: "default",
+};

@@ -2,7 +2,7 @@ import userAPI from "API/userAPI";
 import { USER_LOGIN } from "constants";
 import { STATUS_CODE } from "constants";
 import { ACCESS_TOKEN } from "constants";
-import { insertUserLogin, setLoading } from "reduxs/Slice/userSlice";
+import { insertUserLogin, setLoading, setUserList } from "reduxs/Slice/userSlice";
 import Swal from "sweetalert2";
 
 export function fetchSignIn(data) {
@@ -12,17 +12,14 @@ export function fetchSignIn(data) {
 
       const res = await userAPI.signIn(data);
 
-      const { statusCode } = res.data;
+      const { statusCode, content } = res.data;
 
       if (statusCode === STATUS_CODE.SUCCESS) {
         dispatch(setLoading(false));
-        dispatch(insertUserLogin(res.data.content));
-        localStorage.setItem(
-          ACCESS_TOKEN,
-          JSON.stringify({ access_token: res.data.content.accessToken })
-        );
+        dispatch(insertUserLogin(content));
+        localStorage.setItem(ACCESS_TOKEN, JSON.stringify({ access_token: content.accessToken }));
 
-        const { email, avatar, name } = res.data.content;
+        const { email, avatar, name } = content;
 
         localStorage.setItem(USER_LOGIN, JSON.stringify({ email, avatar, name }));
       }
@@ -36,6 +33,27 @@ export function fetchSignIn(data) {
       });
 
       dispatch(setLoading(false));
+    }
+  };
+}
+
+export function fetchUserList(keyword) {
+  return async (dispatch) => {
+    try {
+      dispatch(setLoading(true));
+
+      const res = await userAPI.getUserList(keyword);
+
+      const { statusCode, content } = res.data;
+
+      if (statusCode === STATUS_CODE.SUCCESS) {
+        dispatch(setUserList(content));
+        dispatch(setLoading(false));
+      }
+    } catch (error) {
+      dispatch(setLoading(false));
+
+      console.log(error);
     }
   };
 }

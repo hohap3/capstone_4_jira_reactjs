@@ -6,6 +6,7 @@ const userSlice = createSlice({
     userLogin: null,
     hasRegister: false,
     isLoading: false,
+    userList: [],
   },
 
   reducers: {
@@ -24,9 +25,24 @@ const userSlice = createSlice({
     setLoading(state, action) {
       state.isLoading = action.payload;
     },
+
+    setUserList(state, action) {
+      state.userList = action.payload;
+    },
+
+    resetUserList(state) {
+      state.userList = [];
+    },
   },
 });
 
 const { actions, reducer } = userSlice;
-export const { insertUserLogin, registerSuccess, resetRegister, setLoading } = actions;
+export const {
+  insertUserLogin,
+  registerSuccess,
+  resetRegister,
+  setLoading,
+  setUserList,
+  resetUserList,
+} = actions;
 export default reducer;
