@@ -133,7 +133,7 @@ function ProjectManagerTable({ onAddUser, onRemoveProject }) {
                 placement="bottom"
                 trigger="hover"
                 content={() => (
-                  <div>
+                  <div className="h-32 overflow-y-scroll overflow-x-hidden">
                     {members?.slice(3).map((member) => (
                       <MemberDetail member={member} projectId={id} />
                     ))}
