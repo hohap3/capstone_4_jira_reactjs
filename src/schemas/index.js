@@ -1,1 +1,2 @@
-export * from "./schemaLogin";
+export * from "./schemaAuth";
+export * from "./schemaProject";
