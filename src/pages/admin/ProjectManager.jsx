@@ -47,9 +47,23 @@ function ProjectManager() {
       }
     } catch (error) {
       console.log(error);
-      const { content } = error.response.data;
-
+      const { statusCode, content, message } = error.response.data;
       const errorToastMessage = toastMessage(content, TOAST_TYPE.ERROR);
+
+      const { ERROR_FORBIDDEN } = STATUS_CODE;
+
+      switch (statusCode) {
+        case ERROR_FORBIDDEN:
+          Swal.fire({
+            title: `Error ${ERROR_FORBIDDEN} :  ${content}`,
+            text: `${message}`,
+            icon: "error",
+          });
+          break;
+
+        default:
+          break;
+      }
 
       errorToastMessage();
     }

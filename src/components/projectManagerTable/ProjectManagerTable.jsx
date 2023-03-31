@@ -183,7 +183,7 @@ function ProjectManagerTable({ onAddUser, onRemoveProject }) {
                 </div>
               )}
             >
-              <Button variant="text" onClick={() => handleOpenPop(index)} title="Add new user">
+              <Button variant="text" title="Add new user">
                 <PersonAddIcon />
               </Button>
             </Popover>
