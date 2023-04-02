@@ -2,9 +2,34 @@ import React from "react";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
 import { NavLink } from "react-router-dom";
 import { getLoginInfo } from "utils";
+import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "reduxs/Slice/userSlice";
+import { ACCESS_TOKEN } from "constants";
+import { USER_LOGIN } from "constants";
+import Swal from "sweetalert2";
 
 function MenuAdmin(props) {
+  const dispatch = useDispatch();
+  const selectedProjectId = useSelector((state) => state.project.selectedProjectId);
   const { avatar, email, name } = getLoginInfo();
+
+  function handleLogout() {
+    Swal.fire({
+      title: "Are you sure you want to logout?",
+      text: "You won't be able to reverse this",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Log Out",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(logoutUser());
+        localStorage.removeItem(ACCESS_TOKEN);
+        localStorage.removeItem(USER_LOGIN);
+        window.location.pathname = "/signIn";
+      }
+    });
+  }
 
   return (
     <div className="menu">
@@ -14,12 +39,15 @@ function MenuAdmin(props) {
         </div>
         <div className="account-info">
           <p>{email}</p>
-          <p>Report bugs</p>
+          <p className="mb-2">Report bugs</p>
+          <Button onClick={handleLogout} title="Logout account!" variant="contained">
+            Log out
+          </Button>
         </div>
       </div>
       <div className="control">
         <NavLink
-          to="/admin/home"
+          to={`/admin/home/${selectedProjectId ? selectedProjectId : "empty"}`}
           className={({ isActive, isPending }) => {
             return `flex gap-4 items-center mb-4 text-[14px] ${
               isActive ? "text-blue-500" : "text-black"

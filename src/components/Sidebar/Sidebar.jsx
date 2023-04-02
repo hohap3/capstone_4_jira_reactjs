@@ -4,14 +4,31 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import AppsIcon from "@mui/icons-material/Apps";
 import { Layout, Menu } from "antd";
+import ModalCreateTask from "components/modalCreateTask/ModalCreateTask";
 
 const { Header, Sider, Content } = Layout;
 
 function Sidebar(props) {
   const [collapse, setCollapse] = useState(true);
+  const [openDrawer, setOpenDrawer] = useState({
+    openCreate: false,
+    openSearch: false,
+  });
 
   function handleToggleCollapse() {
     setCollapse((prevState) => !prevState);
+  }
+
+  function handleToggleDrawer(type) {
+    if (type === null || type === undefined) return;
+
+    if (type === "create")
+      setOpenDrawer((prevState) => ({ ...prevState, openCreate: !prevState.openCreate }));
+    else setOpenDrawer((prevState) => ({ ...prevState, openSearch: !prevState.openSearch }));
+  }
+
+  function handleCloseCreate() {
+    setOpenDrawer((prevState) => ({ ...prevState, openCreate: false }));
   }
 
   return (
@@ -82,17 +99,29 @@ function Sidebar(props) {
             {
               key: 1,
               icon: <AddIcon />,
-              label: "Search Issue",
+              label: "Create Task",
+              title: "Create Task",
+              style: {
+                background: openDrawer.openCreate ? "#1677ff" : "transparent",
+              },
+              onClick: () => handleToggleDrawer("create"),
             },
 
             {
               key: 2,
               icon: <SearchOutlinedIcon />,
-              label: "Create Issue",
+              label: "Search Task",
+              title: "Search Task",
+              style: {
+                background: openDrawer.openSearch ? "#1677ff" : "transparent",
+              },
+              onClick: () => handleToggleDrawer("search"),
             },
           ]}
         ></Menu>
       </Sider>
+
+      <ModalCreateTask openDrawer={openDrawer.openCreate} onClose={handleCloseCreate} />
     </div>
   );
 }

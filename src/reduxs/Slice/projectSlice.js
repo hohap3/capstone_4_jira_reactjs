@@ -6,6 +6,8 @@ const projectSlice = createSlice({
     isLoading: false,
     projectList: [],
     selectedProject: null,
+    selectedProjectId: null,
+    projectDetailById: null,
   },
   reducers: {
     setProjectList(state, action) {
@@ -39,6 +41,14 @@ const projectSlice = createSlice({
 
       state.projectList[index] = { ...state.projectList[index], ...values };
     },
+
+    setSelectedId(state, action) {
+      state.selectedProjectId = action.payload;
+    },
+
+    setProjectDetail(state, action) {
+      state.projectDetailById = action.payload;
+    },
   },
 });
 
@@ -51,5 +61,7 @@ export const {
   resetSelectedProject,
   startLoading,
   updateProjectList,
+  setSelectedId,
+  setProjectDetail,
 } = actions;
 export default reducer;

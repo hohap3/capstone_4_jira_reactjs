@@ -76,6 +76,19 @@ const projectAPI = {
       },
     });
   },
+
+  getProjectDetail(projectId) {
+    const access_token = getAccessToken();
+    const url = `Project/getProjectDetail`;
+    return https.get(url, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+      params: {
+        id: projectId,
+      },
+    });
+  },
 };
 
 export default projectAPI;

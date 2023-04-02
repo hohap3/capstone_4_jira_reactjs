@@ -33,6 +33,10 @@ const userSlice = createSlice({
     resetUserList(state) {
       state.userList = [];
     },
+
+    logoutUser(state) {
+      state.userLogin = null;
+    },
   },
 });
 
@@ -44,5 +48,6 @@ export const {
   setLoading,
   setUserList,
   resetUserList,
+  logoutUser,
 } = actions;
 export default reducer;
