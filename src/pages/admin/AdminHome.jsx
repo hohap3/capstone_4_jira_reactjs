@@ -28,7 +28,7 @@ function AdminHome(props) {
 
       {projectId === "empty" && (
         <div>
-          <h2>Project board is empty! Please select one of projects</h2>
+          <h2>Project board is empty! Please select one of projects from Project Manager</h2>
         </div>
       )}
 

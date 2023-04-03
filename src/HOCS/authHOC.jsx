@@ -34,7 +34,7 @@ export function authHOC(WrapComponent) {
           },
         }).then((result) => {
           if (result.dismiss === Swal.DismissReason.timer) {
-            window.location.pathname = "/admin/home";
+            window.location.pathname = "/admin/projectManager";
           }
         });
       }
