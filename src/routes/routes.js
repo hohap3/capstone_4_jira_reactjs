@@ -18,7 +18,7 @@ const clientRoutes = [
 
 const adminRoutes = [
   {
-    path: "home",
+    path: "home/:projectId",
     component: AdminHome,
   },
   {

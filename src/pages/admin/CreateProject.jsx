@@ -44,13 +44,11 @@ function CreateProjectPage() {
       const res = await projectAPI.createProjectAuthorize(values);
 
       if (res.data.statusCode === STATUS_CODE.SUCCESS) {
-        console.log(res.data.statusCode);
         setLoading(false);
         notifyMessage();
       }
     } catch (error) {
-      console.log(error);
-      const { content, statusCode } = error.response.data;
+      const { content, statusCode } = error.response?.data;
       setLoading(false);
 
       switch (statusCode) {

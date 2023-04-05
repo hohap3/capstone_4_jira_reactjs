@@ -72,7 +72,9 @@ function FormUpdate({ onSubmit, values }) {
       <EditorAdminField name="description" label="Description" control={control} />
 
       <div className="flex items-center gap-4 justify-end mt-10 mb-4">
-        <Button onClick={handleCloseDrawer}>Cancel</Button>
+        <Button type="button" onClick={handleCloseDrawer}>
+          Cancel
+        </Button>
         <Button type="submit" variant="contained">
           Submit
         </Button>

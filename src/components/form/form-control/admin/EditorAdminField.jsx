@@ -13,7 +13,6 @@ function EditorAdminField(props) {
   } = useController({ name, control });
 
   function handleEditorChange(content, editor) {
-    console.log(content);
     field.onChange(content);
   }
 

@@ -7,6 +7,7 @@ const userSlice = createSlice({
     hasRegister: false,
     isLoading: false,
     userList: [],
+    userListByProject: [],
   },
 
   reducers: {
@@ -33,6 +34,14 @@ const userSlice = createSlice({
     resetUserList(state) {
       state.userList = [];
     },
+
+    logoutUser(state) {
+      state.userLogin = null;
+    },
+
+    setUserListByProjectId(state, action) {
+      state.userListByProject = action.payload;
+    },
   },
 });
 
@@ -44,5 +53,7 @@ export const {
   setLoading,
   setUserList,
   resetUserList,
+  logoutUser,
+  setUserListByProjectId,
 } = actions;
 export default reducer;

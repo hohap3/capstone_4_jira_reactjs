@@ -25,6 +25,20 @@ const userAPI = {
       },
     });
   },
+
+  getUserByProjectId(idProject) {
+    const url = `Users/getUserByProjectId`;
+    const access_token = getAccessToken();
+
+    return https.get(url, {
+      params: {
+        idProject,
+      },
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+  },
 };
 
 export default userAPI;

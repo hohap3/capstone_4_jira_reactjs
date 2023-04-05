@@ -5,7 +5,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSignIn } from "thunks/userThunk";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 function SignIn() {
@@ -14,7 +14,6 @@ function SignIn() {
   const isLoading = useSelector((state) => state.user.isLoading);
 
   const timeoutId = useRef();
-  const navigate = useNavigate();
 
   const successMessage = () =>
     toast.success("Login Successful!", {
@@ -35,7 +34,7 @@ function SignIn() {
   useEffect(() => {
     if (userLogin) {
       timeoutId.current = setTimeout(() => {
-        window.location.pathname = "/admin/home";
+        window.location.pathname = "/admin/projectManager";
       }, 2500);
     }
 

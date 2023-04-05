@@ -1,16 +1,17 @@
 import { Button } from "@mui/material";
 import { AutoComplete, Avatar, Popover, Table, Tag } from "antd";
 import LoadingCircle from "components/loadingCircle/LoadingCircle";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ReactHtmlParser from "react-html-parser";
 
-import { setSelectedProject } from "reduxs/Slice/projectSlice";
+import { setSelectedId, setSelectedProject } from "reduxs/Slice/projectSlice";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { fetchUserList } from "thunks/userThunk";
 import MemberDetail from "components/memberDetail/MemberDetail";
+import { Link } from "react-router-dom";
 
 function ProjectManagerTable({ onAddUser, onRemoveProject }) {
   const isLoading = useSelector((state) => state.project.isLoading);
@@ -21,6 +22,7 @@ function ProjectManagerTable({ onAddUser, onRemoveProject }) {
     userId: null,
     value: "",
   });
+  const timeoutId = useRef();
 
   // edit project
 
@@ -69,9 +71,13 @@ function ProjectManagerTable({ onAddUser, onRemoveProject }) {
       title: "Project name",
       dataIndex: "projectName",
       key: "projectName",
-      render: (text) => {
-        const html = `<p class="font-normal">${text}</p>`;
-        return ReactHtmlParser(html);
+      render: (text, record) => {
+        const { id } = record;
+        return (
+          <Tag onClick={() => dispatch(setSelectedId(id))} color="#108ee9">
+            <Link to={`/admin/home/${id}`}>{text}</Link>
+          </Tag>
+        );
       },
     },
     {
@@ -159,7 +165,11 @@ function ProjectManagerTable({ onAddUser, onRemoveProject }) {
                     className="w-full"
                     placeholder="Add member"
                     onSearch={(value) => {
-                      dispatch(fetchUserList(value));
+                      if (timeoutId.current) clearTimeout(timeoutId.current);
+
+                      timeoutId.current = setTimeout(() => {
+                        dispatch(fetchUserList(value));
+                      }, 500);
                     }}
                     onSelect={(value, option) => {
                       const { label } = option;
@@ -183,7 +193,7 @@ function ProjectManagerTable({ onAddUser, onRemoveProject }) {
                 </div>
               )}
             >
-              <Button variant="text" title="Add new user">
+              <Button variant="text" title="Add new user to project">
                 <PersonAddIcon />
               </Button>
             </Popover>
@@ -199,11 +209,19 @@ function ProjectManagerTable({ onAddUser, onRemoveProject }) {
       render: (text, record) => {
         return (
           <div className="flex items-center">
-            <Button sx={{ color: "green" }} onClick={() => handleEditProject(record)}>
+            <Button
+              title="Edit project"
+              sx={{ color: "green" }}
+              onClick={() => handleEditProject(record)}
+            >
               <EditIcon />
             </Button>
 
-            <Button onClick={() => handleRemoveProject(record)} sx={{ color: "red" }}>
+            <Button
+              title="Remove project"
+              onClick={() => handleRemoveProject(record)}
+              sx={{ color: "red" }}
+            >
               <DeleteIcon />
             </Button>
           </div>

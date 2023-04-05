@@ -19,7 +19,7 @@ function InputAdminField(props) {
           name={field.name}
           onChange={field.onChange}
           onBlur={field.onBlur}
-          {...restProps}
+          inputProps={restProps}
           value={field.value}
         />
         {invalid && (

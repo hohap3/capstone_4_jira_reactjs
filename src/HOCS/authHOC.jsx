@@ -1,22 +1,20 @@
-import { ACCESS_TOKEN } from "constants";
+import { USER_LOGIN } from "constants";
 import LayoutAuth from "layouts/LayoutAuth";
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { getAccessToken } from "utils";
 
 export function authHOC(WrapComponent) {
   return function () {
     const userLogin = useSelector((state) => state.user.userLogin);
-    const accessToken = JSON.parse(localStorage.getItem(ACCESS_TOKEN)) ?? {};
-
-    const { access_token } = accessToken;
-
+    const access_token = getAccessToken();
+    const user_login = localStorage.getItem(USER_LOGIN) ?? {};
     const timeInterval = useRef();
 
     // Check if user logged in , then we redirect to admin page
     useEffect(() => {
-      if (userLogin || access_token) {
+      if (userLogin || (access_token && user_login)) {
         Swal.fire({
           title: "You have been logged in!",
           html: "You will return admin page after <b></b> milliseconds",
@@ -34,7 +32,7 @@ export function authHOC(WrapComponent) {
           },
         }).then((result) => {
           if (result.dismiss === Swal.DismissReason.timer) {
-            window.location.pathname = "/admin/home";
+            window.location.pathname = "/admin/projectManager";
           }
         });
       }
