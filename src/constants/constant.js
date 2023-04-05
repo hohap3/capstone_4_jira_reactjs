@@ -23,6 +23,7 @@ export const USER_LOGIN = "USER_LOGIN";
 export const STATUS_CODE = {
   SUCCESS: 200,
   ERROR_SERVER: 500,
+  ERROR_BADREQUEST: 400,
   ERROR_UNAUTHORIZE: 401,
   ERROR_NOTFOUND: 404,
   ERROR_FORBIDDEN: 403,
@@ -35,3 +36,5 @@ export const TOAST_TYPE = {
   INFO: "info",
   DEFAULT: "default",
 };
+
+export const USER_LOGIN_DEFAULT_VALUES = ["email", "avatar", "name"];

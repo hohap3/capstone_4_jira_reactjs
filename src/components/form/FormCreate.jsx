@@ -8,7 +8,7 @@ import InputAdminField from "./form-control/admin/InputAdminField";
 import SelectAdminField from "./form-control/admin/SelectAdminField";
 
 function FormCreate({ onSubmit }) {
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       projectName: "",
       description: "",
@@ -21,6 +21,8 @@ function FormCreate({ onSubmit }) {
 
   function handleSubmitForm(values) {
     if (onSubmit) onSubmit(values);
+
+    reset();
   }
 
   return (

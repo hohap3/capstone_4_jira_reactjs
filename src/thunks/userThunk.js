@@ -2,7 +2,12 @@ import userAPI from "API/userAPI";
 import { USER_LOGIN } from "constants";
 import { STATUS_CODE } from "constants";
 import { ACCESS_TOKEN } from "constants";
-import { insertUserLogin, setLoading, setUserList } from "reduxs/Slice/userSlice";
+import {
+  insertUserLogin,
+  setLoading,
+  setUserList,
+  setUserListByProjectId,
+} from "reduxs/Slice/userSlice";
 import Swal from "sweetalert2";
 
 export function fetchSignIn(data) {
@@ -54,6 +59,34 @@ export function fetchUserList(keyword) {
       dispatch(setLoading(false));
 
       console.log(error);
+    }
+  };
+}
+
+export function fetchUserListByProjectId(projectId) {
+  return async function (dispatch) {
+    try {
+      const res = await userAPI.getUserByProjectId(projectId);
+
+      const { statusCode, content } = res.data;
+
+      const { SUCCESS } = STATUS_CODE;
+
+      if (statusCode === SUCCESS) {
+        dispatch(setUserListByProjectId(content));
+      }
+    } catch (error) {
+      const { ERROR_NOTFOUND, ERROR_BADREQUEST } = STATUS_CODE;
+
+      const { statusCode } = error.response.data;
+
+      if (statusCode === ERROR_BADREQUEST) return;
+
+      if (statusCode === ERROR_NOTFOUND) {
+        dispatch(setUserListByProjectId([]));
+
+        return;
+      }
     }
   };
 }

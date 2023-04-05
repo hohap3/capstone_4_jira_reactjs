@@ -20,7 +20,7 @@ function InputField(props) {
       error={invalid}
       helperText={errors[name]?.message ? errors[name].message : null}
       fullWidth
-      {...restProps}
+      inputProps={restProps}
     />
   );
 }

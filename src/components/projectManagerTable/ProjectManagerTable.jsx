@@ -193,7 +193,7 @@ function ProjectManagerTable({ onAddUser, onRemoveProject }) {
                 </div>
               )}
             >
-              <Button variant="text" title="Add new user">
+              <Button variant="text" title="Add new user to project">
                 <PersonAddIcon />
               </Button>
             </Popover>
@@ -209,11 +209,19 @@ function ProjectManagerTable({ onAddUser, onRemoveProject }) {
       render: (text, record) => {
         return (
           <div className="flex items-center">
-            <Button sx={{ color: "green" }} onClick={() => handleEditProject(record)}>
+            <Button
+              title="Edit project"
+              sx={{ color: "green" }}
+              onClick={() => handleEditProject(record)}
+            >
               <EditIcon />
             </Button>
 
-            <Button onClick={() => handleRemoveProject(record)} sx={{ color: "red" }}>
+            <Button
+              title="Remove project"
+              onClick={() => handleRemoveProject(record)}
+              sx={{ color: "red" }}
+            >
               <DeleteIcon />
             </Button>
           </div>

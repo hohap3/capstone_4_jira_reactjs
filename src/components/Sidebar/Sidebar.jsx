@@ -103,6 +103,7 @@ function Sidebar(props) {
               title: "Create Task",
               style: {
                 background: openDrawer.openCreate ? "#1677ff" : "transparent",
+                color: openDrawer.openCreate ? "#fff" : "#ccc",
               },
               onClick: () => handleToggleDrawer("create"),
             },
@@ -114,6 +115,7 @@ function Sidebar(props) {
               title: "Search Task",
               style: {
                 background: openDrawer.openSearch ? "#1677ff" : "transparent",
+                color: openDrawer.openCreate ? "#fff" : "#ccc",
               },
               onClick: () => handleToggleDrawer("search"),
             },

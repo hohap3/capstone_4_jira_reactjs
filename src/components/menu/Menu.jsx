@@ -1,6 +1,6 @@
 import React from "react";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { getLoginInfo } from "utils";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,9 @@ function MenuAdmin(props) {
   const dispatch = useDispatch();
   const selectedProjectId = useSelector((state) => state.project.selectedProjectId);
   const { avatar, email, name } = getLoginInfo();
+  const params = useParams();
+
+  const { projectId } = params;
 
   function handleLogout() {
     Swal.fire({
@@ -47,7 +50,9 @@ function MenuAdmin(props) {
       </div>
       <div className="control">
         <NavLink
-          to={`/admin/home/${selectedProjectId ? selectedProjectId : "empty"}`}
+          to={`/admin/home/${
+            selectedProjectId || projectId ? selectedProjectId || projectId : "empty"
+          }`}
           className={({ isActive, isPending }) => {
             return `flex gap-4 items-center mb-4 text-[14px] ${
               isActive ? "text-blue-500" : "text-black"

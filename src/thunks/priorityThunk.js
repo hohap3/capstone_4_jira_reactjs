@@ -1,6 +1,6 @@
 import { priorityAPI } from "API/priorityAPI";
 import { STATUS_CODE } from "constants";
-import { setPriorityList } from "reduxs/Slice/PrioritySlice";
+import { doneLoading, setPriorityList } from "reduxs/Slice/PrioritySlice";
 
 export function fetchPriorityList() {
   return async function (dispatch) {
@@ -10,6 +10,7 @@ export function fetchPriorityList() {
       const { content, statusCode } = res.data;
 
       if (statusCode === STATUS_CODE.SUCCESS) {
+        dispatch(doneLoading());
         dispatch(setPriorityList(content));
       }
     } catch (error) {

@@ -80,7 +80,7 @@ function ModalEdit(props) {
         size="large"
       >
         <div className="modalEdit__content">
-          <FormUpdate onSubmit={handleSubmitForm} values={projectDetail} />
+          <FormUpdate onSubmit={handleSubmitForm} values={projectDetail} onClose={handleClose} />
         </div>
       </Drawer>
 

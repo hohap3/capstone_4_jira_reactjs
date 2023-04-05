@@ -1,13 +1,9 @@
 import { authHOC } from "HOCS/authHOC";
-
 import AdminPage from "pages/admin/AdminPage";
-
 import NotFound from "pages/NotFound";
 import React, { useEffect } from "react";
-
 import { Route, Routes } from "react-router-dom";
 import { adminRoutes, clientRoutes } from "routes/routes";
-
 import "./App.css";
 import "./styles/layoutAdmin.scss";
 
@@ -35,9 +31,9 @@ function App() {
       ) : (
         <Routes>
           <Route path="/admin" element={<AdminPage />}>
-            {adminRoutes?.map(({ path, component: Component }, idx) => (
-              <Route key={idx} path={path} element={<Component />}></Route>
-            ))}
+            {adminRoutes?.map(({ path, component: Component }, idx) => {
+              return <Route key={idx} path={path} element={<Component />}></Route>;
+            })}
           </Route>
 
           <Route path="*" element={<NotFound />} />

@@ -1,4 +1,4 @@
-import { Avatar, Popover } from "antd";
+import { Avatar, Popover, Tag } from "antd";
 import MemberInfo from "components/memberInfo/MemberInfo";
 import MemberInfoList from "components/memberInfoList/MemberInfoList";
 import React from "react";
@@ -13,6 +13,12 @@ function InfoMain(props) {
     if (!projectDetailById) return;
     return (
       <div className="flex items-center gap-2">
+        {projectDetailById.members?.length < 1 && (
+          <Tag color="#108ee9" className="font-medium text-base">
+            This project doesn't have any members!
+          </Tag>
+        )}
+
         {projectDetailById.members?.slice(0, 3).map((member) => (
           <Popover
             key={member.userId}
