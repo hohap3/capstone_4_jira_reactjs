@@ -26,12 +26,6 @@ function FormCreateTask({ onSubmit, onClose }) {
     timeTrackingRemaining: 0,
   });
 
-  function handleChangeTime(e) {
-    const { name, value } = e.target;
-    setTimeTracking((prevState) => ({ ...prevState, [name]: value }));
-    setValue(name, +value);
-  }
-
   const {
     handleSubmit,
     control,
@@ -54,6 +48,12 @@ function FormCreateTask({ onSubmit, onClose }) {
 
     resolver: yupResolver(createTaskSchema),
   });
+
+  function handleChangeTime(e) {
+    const { name, value } = e.target;
+    setTimeTracking((prevState) => ({ ...prevState, [name]: value }));
+    setValue(name, +value);
+  }
 
   function handleSubmitForm(values) {
     if (onSubmit) onSubmit(values);
