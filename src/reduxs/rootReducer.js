@@ -5,6 +5,7 @@ import projectReducer from "./Slice/projectSlice";
 import taskReducer from "./Slice/taskSlice";
 import priorityReducer from "./Slice/PrioritySlice";
 import statusReducer from "./Slice/statusSlice";
+import commentSlice from "./Slice/commentSlice";
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   task: taskReducer,
   priority: priorityReducer,
   status: statusReducer,
+  comment:commentSlice
 });
 
 export default rootReducer;

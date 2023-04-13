@@ -6,6 +6,7 @@ import {
   setProjectList,
   startLoading,
 } from "reduxs/Slice/projectSlice";
+import { setTaskDetail } from "reduxs/Slice/taskSlice";
 
 export function fetchAllProject() {
   return async function (dispatch) {
@@ -31,6 +32,7 @@ export function fetchProjectDetail(projectId) {
     try {
       dispatch(startLoading());
       const res = await projectAPI.getProjectDetail(projectId);
+      console.log("file: projectThunk.js:34 ~ res:", res)
 
       const { SUCCESS } = STATUS_CODE;
       const { content, statusCode } = res.data;
@@ -38,6 +40,25 @@ export function fetchProjectDetail(projectId) {
       if (statusCode === SUCCESS) {
         dispatch(doneLoading());
         dispatch(setProjectDetail(content));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+export function fetchTaskDetail(taskId) {
+  return async function (dispatch) {
+    try {
+      dispatch(startLoading());
+      const res = await projectAPI.getTaskDetail(taskId);
+      console.log("file: projectThunk.js:54 ~ res:", res)
+
+      const { SUCCESS } = STATUS_CODE;
+      const { content, statusCode } = res.data;
+
+      if (statusCode === SUCCESS) {
+        dispatch(doneLoading());
+        dispatch(setTaskDetail(content));
       }
     } catch (error) {
       console.log(error);

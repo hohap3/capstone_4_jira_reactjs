@@ -45,14 +45,12 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  outline: none;
 }
 button:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -65,4 +63,18 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+.comment::-webkit-scrollbar {
+  width: 8px;
+  /* background-color: white; */
+}
+.comment::-webkit-scrollbar-thumb{
+  /* background-color: red; */
+  border-radius: 2px;
+}
+ul.MuiPagination-ul.css-wjh20t-MuiPagination-ul{
+  gap: 40px;
+}
+.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected,button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root{
+  display: none;
 }

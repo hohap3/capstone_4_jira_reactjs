@@ -1,65 +1,70 @@
-import React from "react";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { useSelector } from "react-redux";
-
+import ModalEdit from "layouts/ModalEdit";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ToggleModal } from "reduxs/Slice/taskSlice";
+import { fetchCommentList } from "thunks/commentThunk";
+import { fetchTaskDetail } from "thunks/projectThunk";
 function ContentMain(props) {
-  const projectDetailById = useSelector((state) => state.project.projectDetailById);
+  const {projectDetailById} = useSelector((state) => state.project);
+  const {isOpen} = useSelector((state) => state.task);
+  const dispatch = useDispatch()
+  const handleOpenModal = (id) => {
+    dispatch(ToggleModal(true))
+    dispatch(fetchTaskDetail(id))
+    dispatch(fetchCommentList(id));
+
+  };
 
   function renderCardList() {
     if (!projectDetailById) return;
-
-    return projectDetailById.lstTask.map((task, idx) => (
-      <div key={idx} className="card" style={{ width: "17rem", height: "25rem" }}>
-        <div className="card-header text-sm">{task.statusName}</div>
-        <ul className="list-group list-group-flush">
-          <li
-            className="list-group-item"
-            data-toggle="modal"
-            data-target="#infoModal"
-            style={{ cursor: "pointer" }}
-          >
-            <p>Each issue has a single reporter but can have multiple assignees</p>
-            <div className="block" style={{ display: "flex" }}>
-              <div className="block-left flex gap-1 items-center">
-                <CheckBoxIcon sx={{ fontSize: "1.2rem", color: "blue" }} />
-                <ArrowUpwardIcon sx={{ fontSize: "1.2rem", color: "red" }} />
-              </div>
-              <div className="block-right">
-                <div className="avatar-group" style={{ display: "flex" }}>
-                  <div className="avatar">
-                    <img src="./assets/img/download (1).jfif" alt="" />
+    const color = "px-[10px] py-[2px] rounded-lg text-[12px]";
+    return <>
+      {projectDetailById?.lstTask?.map((taskListDetail, idx) => (
+        <div key={idx} className="card" style={{ width: "17rem", height: "auto" }}>
+          <div className="card-header text-sm">{taskListDetail.statusName}</div>
+          <ul className="list-group list-group-flush">
+            {taskListDetail.lstTaskDeTail?.map((task, index) => (
+              <li
+                className="list-group-item"
+                data-toggle="modal"
+                data-target="#infoModal"
+                style={{ cursor: "pointer" }}
+                key={index}
+                onClick={()=>handleOpenModal(task.taskId)}
+              >
+                <p className="font-bold">{task.taskName}</p>
+                <div className="block" style={{ display: "flex" }}>
+                  <div className="block-left flex gap-1 items-center">
+                    <p>
+                      {task.priorityTask.priority.toLowerCase() === "medium" ? (
+                        <span className={` bg-green-300 ${color}`}>Medium</span>
+                      ) : task.priorityTask.priority.toLowerCase() === "lowest" ? (
+                        <span className={` bg-green-300 ${color}`}>Lowest</span>
+                      ) : task.priorityTask.priority.toLowerCase() === "low" ? (
+                        <span className={` bg-orange-300 ${color}`}>Low</span>
+                      ) :(
+                        <span className={` bg-red-300 ${color}`}>High</span>
+                      )}
+                    </p>
+                  
                   </div>
-                  <div className="avatar">
-                    <img src="./assets/img/download (2).jfif" alt="" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li className="list-group-item">
-            <p>Each issue has a single reporter but can have multiple assignees</p>
-            <div className="block" style={{ display: "flex" }}>
-              <div className="block-left flex gap-1 items-center">
-                <CheckBoxIcon sx={{ fontSize: "1.2rem", color: "blue" }} />
-                <ArrowUpwardIcon sx={{ fontSize: "1.2rem", color: "red" }} />
-              </div>
-              <div className="block-right">
-                <div className="avatar-group" style={{ display: "flex" }}>
-                  <div className="avatar">
-                    <img src="./assets/img/download (1).jfif" alt="" />
-                  </div>
-                  <div className="avatar">
-                    <img src="./assets/img/download (2).jfif" alt="" />
+                  <div className="block-right">
+                    <div className="avatar-group" style={{ display: "flex" }}>
+                      {projectDetailById.members?.map((mem, index) => (
+                        <div className="avatar" key={index}>
+                          <img src={mem.avatar} alt={mem.avatar} />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </li>
-          <li className="list-group-item">Vestibulum at eros</li>
-        </ul>
-      </div>
-    ));
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <ModalEdit handleToggle={isOpen} ></ModalEdit>
+    </>;
   }
 
   return (
@@ -70,77 +75,3 @@ function ContentMain(props) {
 }
 
 export default ContentMain;
-
-{
-  /* <div className="card" style={{ width: "17rem", height: "25rem" }}>
-<div className="card-header text-sm">BACKLOG 3</div>
-<ul className="list-group list-group-flush">
-  <li
-    className="list-group-item"
-    data-toggle="modal"
-    data-target="#infoModal"
-    style={{ cursor: "pointer" }}
-  >
-    <p>Each issue has a single reporter but can have multiple assignees</p>
-    <div className="block" style={{ display: "flex" }}>
-      <div className="block-left flex gap-1 items-center">
-        <CheckBoxIcon sx={{ fontSize: "1.2rem", color: "blue" }} />
-        <ArrowUpwardIcon sx={{ fontSize: "1.2rem", color: "red" }} />
-      </div>
-      <div className="block-right">
-        <div className="avatar-group" style={{ display: "flex" }}>
-          <div className="avatar">
-            <img src="./assets/img/download (1).jfif" alt="" />
-          </div>
-          <div className="avatar">
-            <img src="./assets/img/download (2).jfif" alt="" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li className="list-group-item">
-    <p>Each issue has a single reporter but can have multiple assignees</p>
-    <div className="block" style={{ display: "flex" }}>
-      <div className="block-left flex gap-1 items-center">
-        <CheckBoxIcon sx={{ fontSize: "1.2rem", color: "blue" }} />
-        <ArrowUpwardIcon sx={{ fontSize: "1.2rem", color: "red" }} />
-      </div>
-      <div className="block-right">
-        <div className="avatar-group" style={{ display: "flex" }}>
-          <div className="avatar">
-            <img src="./assets/img/download (1).jfif" alt="" />
-          </div>
-          <div className="avatar">
-            <img src="./assets/img/download (2).jfif" alt="" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li className="list-group-item">Vestibulum at eros</li>
-</ul>
-</div>
-<div className="card" style={{ width: "17rem", height: "25rem" }}>
-<div className="card-header text-sm">SELECTED FOR DEVELOPMENT 2</div>
-<ul className="list-group list-group-flush">
-  <li className="list-group-item">Cras justo odio</li>
-  <li className="list-group-item">Dapibus ac facilisis in</li>
-</ul>
-</div>
-<div className="card" style={{ width: "17rem", height: "25rem" }}>
-<div className="card-header text-sm">IN PROGRESS 2</div>
-<ul className="list-group list-group-flush">
-  <li className="list-group-item">Cras justo odio</li>
-  <li className="list-group-item">Dapibus ac facilisis in</li>
-</ul>
-</div>
-<div className="card" style={{ width: "17rem", height: "25rem" }}>
-<div className="card-header text-sm">DONE 3</div>
-<ul className="list-group list-group-flush">
-  <li className="list-group-item">Cras justo odio</li>
-  <li className="list-group-item">Dapibus ac facilisis in</li>
-  <li className="list-group-item">Vestibulum at eros</li>
-</ul>
-</div> */
-}

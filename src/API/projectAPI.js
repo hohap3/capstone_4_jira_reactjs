@@ -89,6 +89,14 @@ const projectAPI = {
       },
     });
   },
+  getTaskDetail(taskId) {
+    const url = `/Project/getTaskDetail`;
+    return https.get(url, {
+      params: {
+        taskId
+      },
+    });
+  },
 
   createTask(data) {
     const access_token = getAccessToken();
