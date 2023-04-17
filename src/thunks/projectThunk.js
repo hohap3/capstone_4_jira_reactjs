@@ -51,7 +51,6 @@ export function fetchTaskDetail(taskId) {
     try {
       dispatch(startLoading());
       const res = await projectAPI.getTaskDetail(taskId);
-      console.log("file: projectThunk.js:54 ~ res:", res)
 
       const { SUCCESS } = STATUS_CODE;
       const { content, statusCode } = res.data;

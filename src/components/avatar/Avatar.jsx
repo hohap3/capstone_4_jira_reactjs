@@ -4,37 +4,25 @@ import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import Tooltip from '@mui/material/Tooltip';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const PAGE_SIZE = 3;
 
-const users = [
-  {
-    name: 'John Doe',
-    age: 30,
-    avatarSrc: '/static/images/avatar/1.jpg',
-  },
-  {
-    name: 'Jane Doe',
-    age: 28,
-    avatarSrc: '/static/images/avatar/2.jpg',
-  },
-  {
-    name: 'Alex Smith',
-    age: 25,
-    avatarSrc: '/static/images/avatar/3.jpg',
-  },
-  {
-    name: 'Alex Smith',
-    age: 25,
-    avatarSrc: '/static/images/avatar/3.jpg',
-  },
-  // Add more users here
-];
 
 const MyAvatarGroup = () => {
   const [activeUser, setActiveUser] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const {taskDetailModal } = useSelector((state) => state.task);
 
+
+  const users = [];
+  taskDetailModal?.assigness.forEach((item) => {
+    users.push({
+      name: item.name,
+      avatarSrc: item.avatar,
+      userId: item.userId
+    });
+  });
   const handleAvatarClick = (user) => {
     setActiveUser(user);
   };
@@ -51,7 +39,7 @@ const MyAvatarGroup = () => {
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column',position: 'relative' }}>
       <AvatarGroup max={PAGE_SIZE}  onChange={handlePageChange} sx={{position:"relative",cursor:"pointer",zIndex:999}}>
         {pageUsers.map((user) => (
-          <Tooltip title={`${user.name}, ${user.age}`} key={user.name}>
+          <Tooltip title={`${user.name}, ID: ${user.userId}`} key={user.name}>
             <Avatar alt={user.name} src={user.avatarSrc} onClick={() => handleAvatarClick(user)} />
           </Tooltip>
         ))}

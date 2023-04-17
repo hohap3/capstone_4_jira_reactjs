@@ -184,3 +184,9 @@ Vitejs là 1 công cụ build web cực kỳ nhanh và cập nhật nhanh chóng
 ```
   yarn add react-html-parser
 ```
+
+# react-beautiful-dnd (thư viện kéo thả)
+
+```
+  yarn add  react-beautiful-dnd 
+```

@@ -5,10 +5,9 @@ import FormCreateTask from "components/form/FormCreateTask";
 import LoadingCircle from "components/loadingCircle/LoadingCircle";
 import { TOAST_TYPE } from "constants";
 import { STATUS_CODE } from "constants";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import { fetchPriorityList } from "thunks/priorityThunk";
@@ -26,6 +25,8 @@ function ModalCreateTask(props) {
   const dispatch = useDispatch();
 
   const successMessage = toastMessage("Create Task successfully", TOAST_TYPE.SUCCESS);
+  const {taskList} = useSelector(state=>state.task)
+  console.log("file: ModalCreateTask.jsx:29 ~ taskList:", taskList)
 
   async function handleSubmitTask(values) {
     try {
@@ -34,7 +35,6 @@ function ModalCreateTask(props) {
 
       const { statusCode } = res.data;
       const { SUCCESS } = STATUS_CODE;
-
       if (statusCode === SUCCESS) {
         setIsSubmitting(false);
         successMessage();
@@ -66,11 +66,13 @@ function ModalCreateTask(props) {
 
   useEffect(() => {
     dispatch(fetchProjectCategory());
-    dispatch(fetchTaskList());
     dispatch(fetchPriorityList());
     dispatch(fetchStatusList());
     dispatch(fetchAllProject());
+    dispatch(fetchTaskList());
+
   }, [openDrawer]);
+
 
   useEffect(() => {
     dispatch(fetchUserListByProjectId(selectedProjectId));

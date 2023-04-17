@@ -9,10 +9,18 @@ const commentAPI = {
       },
     });
   },
-  updateComment(data) {
-    const url = `Comment/getAll`;
-    return https.put(url,data);
+  updateComment({id,contentComment}) {
+    const url = `Comment/updateComment?id=${id}&contentComment=${contentComment}`;
+    return https.put(url);
   },
+  insertComment(data){
+    const url = `Comment/insertComment`;
+    return https.post(url,data)
+  },
+  deleteCommnent(data){
+    const url = `Comment/deleteComment?idComment=${data}`;
+    return https.delete(url,data)
+  }
 };
 
 export default commentAPI;

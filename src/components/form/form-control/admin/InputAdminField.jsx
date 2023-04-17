@@ -9,7 +9,8 @@ function InputAdminField(props) {
     field,
     fieldState: { invalid },
     formState: { errors },
-  } = useController({ name, control });
+    
+  } = useController({ name, control ,defaultValue:""});
 
   return (
     <div className="form__setting-item flex flex-col mb-4">
@@ -21,6 +22,7 @@ function InputAdminField(props) {
           onBlur={field.onBlur}
           inputProps={restProps}
           value={field.value}
+          
         />
         {invalid && (
           <FormHelperText sx={{ fontSize: "0.8rem" }} id="component-error-text">
