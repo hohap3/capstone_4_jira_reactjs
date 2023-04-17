@@ -3,16 +3,23 @@ import CreateProjectPage from "pages/admin/CreateProject";
 import ProjectManager from "pages/admin/ProjectManager";
 import SignIn from "pages/SignIn";
 import SignUp from "pages/SignUp";
+import WelcomePage from "pages/WelcomePage";
 
 const clientRoutes = [
   {
-    path: "/signIn",
-    component: SignIn,
-  },
+    path: "/",
+    component: WelcomePage,
+    children: [
+      {
+        path: "/signIn",
+        component: SignIn,
+      },
 
-  {
-    path: "/signUp",
-    component: SignUp,
+      {
+        path: "/signUp",
+        component: SignUp,
+      },
+    ],
   },
 ];
 

@@ -28,10 +28,10 @@ function ContentMain(props) {
               <div className="block-right">
                 <div className="avatar-group" style={{ display: "flex" }}>
                   <div className="avatar">
-                    <img src="./assets/img/download (1).jfif" alt="" />
+                    <img src="" alt="" />
                   </div>
                   <div className="avatar">
-                    <img src="./assets/img/download (2).jfif" alt="" />
+                    <img src="" alt="" />
                   </div>
                 </div>
               </div>
@@ -47,10 +47,10 @@ function ContentMain(props) {
               <div className="block-right">
                 <div className="avatar-group" style={{ display: "flex" }}>
                   <div className="avatar">
-                    <img src="./assets/img/download (1).jfif" alt="" />
+                    <img src="" alt="" />
                   </div>
                   <div className="avatar">
-                    <img src="./assets/img/download (2).jfif" alt="" />
+                    <img src="" alt="" />
                   </div>
                 </div>
               </div>

@@ -22,9 +22,16 @@ function App() {
     <div className="App">
       {pathName === "/signIn" || pathName === "/signUp" ? (
         <Routes>
-          {clientRoutes?.map(({ path, component: Component }, idx) => {
-            const AuthComponentHOC = authHOC(Component);
-            return <Route key={idx} path={path} element={<AuthComponentHOC />} />;
+          {clientRoutes?.map(({ path, component: Component, children }, idx) => {
+            return (
+              <Route key={idx} path={path} element={<Component />}>
+                {children?.map(({ path, component: ChildComponent }, idx) => {
+                  const AuthComponentHOC = authHOC(ChildComponent);
+
+                  return <Route key={idx} path={path} element={<AuthComponentHOC />}></Route>;
+                })}
+              </Route>
+            );
           })}
           <Route path="*" element={<NotFound />} />
         </Routes>
