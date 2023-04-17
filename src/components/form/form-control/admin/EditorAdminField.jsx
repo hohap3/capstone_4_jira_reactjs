@@ -3,14 +3,14 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useController } from "react-hook-form";
 
 function EditorAdminField(props) {
-  const { name, label, control, ...restProps } = props;
+  const { name, label, control, defaultValue, ...restProps } = props;
   const editorRef = useRef(null);
 
   const {
     field,
     formState: { errors },
     fieldState: { invalid },
-  } = useController({ name, control });
+  } = useController({ name, control, defaultValue: '', });
 
   function handleEditorChange(content, editor) {
     field.onChange(content);
@@ -24,8 +24,9 @@ function EditorAdminField(props) {
         value={field.value}
         onInit={(evt, editor) => (editorRef.current = editor)}
         onEditorChange={handleEditorChange}
+        defaultValue={defaultValue}
         init={{
-          height: 500,
+          height: 300,
           menubar: false,
           plugins: [
             "advlist autolink lists link image charmap print preview anchor",
@@ -38,6 +39,7 @@ function EditorAdminField(props) {
             "alignright alignjustify | bullist numlist outdent indent | " +
             "removeformat | help",
           content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+          initialValue: defaultValue, // set giá trị mặc định
         }}
       />
     </div>
